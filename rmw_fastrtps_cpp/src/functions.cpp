@@ -1113,8 +1113,10 @@ rmw_publisher_t * rmw_create_publisher(const rmw_node_t * node,
   publisherParam.historyMemoryPolicy = PREALLOCATED_WITH_REALLOC_MEMORY_MODE;
   publisherParam.topic.topicKind = NO_KEY;
   publisherParam.topic.topicDataType = type_name;
+  std::string topic_name_with_type = std::string(topic_name) + "_" + type_name;
+  const char * topic_name2 = topic_name_with_type.c_str();
   rcutils_ret_t ret = _assign_partitions_to_attributes(
-    topic_name, ros_topic_prefix, qos_policies->avoid_ros_namespace_conventions, &publisherParam);
+    topic_name2, ros_topic_prefix, qos_policies->avoid_ros_namespace_conventions, &publisherParam);
   if (ret != RCUTILS_RET_OK) {
     // error msg already set
     goto fail;
@@ -1421,8 +1423,10 @@ rmw_subscription_t * rmw_create_subscription(const rmw_node_t * node,
   subscriberParam.historyMemoryPolicy = PREALLOCATED_WITH_REALLOC_MEMORY_MODE;
   subscriberParam.topic.topicKind = NO_KEY;
   subscriberParam.topic.topicDataType = type_name;
+  std::string topic_name_with_type = std::string(topic_name) + "_" + type_name;
+  const char * topic_name2 = topic_name_with_type.c_str();
   rcutils_ret_t ret = _assign_partitions_to_attributes(
-    topic_name, ros_topic_prefix, qos_policies->avoid_ros_namespace_conventions, &subscriberParam);
+    topic_name2, ros_topic_prefix, qos_policies->avoid_ros_namespace_conventions, &subscriberParam);
   if (ret != RCUTILS_RET_OK) {
     // error msg already set
     goto fail;
